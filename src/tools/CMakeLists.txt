@@ -1,0 +1,34 @@
+## Tools
+
+add_executable(wadinfo wadinfo.c info.h info.c)
+add_executable(tmdinfo tmdinfo.c info.h info.c)
+add_executable(certinfo certinfo.c info.h info.c)
+add_executable(ticketinfo ticketinfo.c info.h info.c)
+add_executable(wadextract wadextract.c)
+add_executable(wadverify wadverify.c)
+add_executable(wadglue wadglue.c)
+
+target_link_libraries(wadinfo libwad)
+target_link_libraries(tmdinfo libwad)
+target_link_libraries(certinfo libwad)
+target_link_libraries(ticketinfo libwad)
+target_link_libraries(wadextract libwad)
+target_link_libraries(wadverify libwad)
+target_link_libraries(wadglue libwad)
+
+install(TARGETS wadinfo DESTINATION bin)
+install(TARGETS tmdinfo DESTINATION bin)
+install(TARGETS certinfo DESTINATION bin)
+install(TARGETS ticketinfo DESTINATION bin)
+install(TARGETS wadextract DESTINATION bin)
+install(TARGETS wadverify DESTINATION bin)
+install(TARGETS wadglue DESTINATION bin)
+
+# optparse
+target_include_directories(wadinfo PRIVATE ${CMAKE_SOURCE_DIR}/externals/optparse)
+target_include_directories(tmdinfo PRIVATE ${CMAKE_SOURCE_DIR}/externals/optparse)
+target_include_directories(certinfo PRIVATE ${CMAKE_SOURCE_DIR}/externals/optparse)
+target_include_directories(ticketinfo PRIVATE ${CMAKE_SOURCE_DIR}/externals/optparse)
+target_include_directories(wadextract PRIVATE ${CMAKE_SOURCE_DIR}/externals/optparse)
+target_include_directories(wadverify PRIVATE ${CMAKE_SOURCE_DIR}/externals/optparse)
+target_include_directories(wadglue PRIVATE ${CMAKE_SOURCE_DIR}/externals/optparse)

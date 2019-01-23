@@ -1,0 +1,6 @@
+[submodule "externals/mbedtls"]
+	path = externals/mbedtls
+	url = https://github.com/ARMmbed/mbedtls.git
+[submodule "externals/optparse"]
+	path = externals/optparse
+	url = https://github.com/skeeto/optparse.git

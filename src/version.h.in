@@ -1,0 +1,6 @@
+#ifndef VERSION_H
+#define VERSION_H
+
+const char* VERSION_STRING = "${LIBWAD_VERSION}";
+
+#endif
