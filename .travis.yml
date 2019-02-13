@@ -3,9 +3,6 @@ os:
   - linux
   - osx
   - windows
-compiler:
-  - clang
-  - gcc
 git:
   submodules: true
 
