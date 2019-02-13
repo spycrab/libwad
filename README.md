@@ -40,5 +40,5 @@ Tool for combining separate sections of a wad into one file
 libwad is licensed under the GNU General Public License v3 or any later
 version at your option. See [LICENSE](LICENSE).
 
-libwad depends on libraries which may have a different license.
-See their respective folders for their license.
+libwad depends on libraries which are subject to different licenses.
+See [THIRDPARTY.md](THIRDPARTY.md) for a complete list.
