@@ -1,0 +1,12 @@
+language: c
+os:
+  - linux
+  - osx
+  - windows
+git:
+  submodules: true
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
