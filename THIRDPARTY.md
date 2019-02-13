@@ -2,7 +2,7 @@
 
 This software utilizes the following third-party libraries:
 
- * mbedtls by ARM Limited, licensed under the "Apache 2.0" license
+ * [mbedtls](https://github.com/ARMmbed/mbedtls) by ARM Limited, licensed under the "Apache 2.0" license
 
 ```
 
@@ -209,7 +209,7 @@ This software utilizes the following third-party libraries:
    limitations under the License.
 ```
 
- * optparse by skeeto, licensed under the "Unlicense" license
+ * [optparse](https://github.com/skeeto/optparse) by skeeto, licensed under the "Unlicense" license
 
 ```
 This is free and unencumbered software released into the public domain.
