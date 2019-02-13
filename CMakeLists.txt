@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.1)
 project(libwad C)
 
 option(ENABLE_TOOLS "Build tools" ON)
