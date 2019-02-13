@@ -1,10 +1,10 @@
 language: c
-os:
-  - linux
-  - osx
-  - windows
-env:
-  - MSBUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\msbuild.exe"
+matrix:
+  include:
+    - os: linux
+    - os: osx
+    - os: windows
+      env: MSBUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\msbuild.exe"
 git:
   submodules: true
 
