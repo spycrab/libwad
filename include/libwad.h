@@ -5,6 +5,7 @@
 #ifndef LIBWAD_H
 #define LIBWAD_H
 
+#include <stddef.h>
 #include <stdint.h>
 
 //! \file
