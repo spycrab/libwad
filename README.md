@@ -1,5 +1,7 @@
 # libwad
 
+[![Build Status](https://travis-ci.org/spycrab/libwad.svg?branch=master)](https://travis-ci.org/spycrab/libwad)  
+
 libwad is a C library for handling the wad file format used by Nintendo to
 distribute content for their Wii console.  
   
