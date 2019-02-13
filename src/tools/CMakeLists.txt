@@ -8,13 +8,6 @@ add_executable(wadextract wadextract.c)
 add_executable(wadverify wadverify.c)
 add_executable(wadglue wadglue.c)
 
-set_property(TARGET wadinfo PROPERTY C_STANDARD 99)
-set_property(TARGET tmdinfo PROPERTY C_STANDARD 99)
-set_property(TARGET certinfo PROPERTY C_STANDARD 99)
-set_property(TARGET ticketinfo PROPERTY C_STANDARD 99)
-set_property(TARGET wadextract PROPERTY C_STANDARD 99)
-set_property(TARGET wadglue PROPERTY C_STANDARD 99)
-
 target_link_libraries(wadinfo libwad)
 target_link_libraries(tmdinfo libwad)
 target_link_libraries(certinfo libwad)

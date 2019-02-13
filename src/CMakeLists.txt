@@ -17,7 +17,6 @@ set(SOURCES
 
 add_library(libwad ${SOURCES})
 
-set_target_properties(libwad PROPERTIES C_STANDARD 99)
 set_target_properties(libwad PROPERTIES PREFIX "")
 set_target_properties(libwad PROPERTIES PUBLIC_HEADER "${CMAKE_SOURCE_DIR}/include/libwad.h")
 
