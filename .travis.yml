@@ -8,8 +8,11 @@ compiler:
   - gcc
 git:
   submodules: true
+
+before_script:
+  
 script:
   - mkdir build
   - cd build
   - cmake ..
-  - if [ "$TRAVIS_OS_NAME" == "windows" ]; then msbuild libwad.sln; else make; fi
+  - if [ "$TRAVIS_OS_NAME" == "windows" ]; then "c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\msbuild.exe" libwad.sln; else make; fi
