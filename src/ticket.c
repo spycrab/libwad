@@ -100,7 +100,8 @@ static struct ticket_data* ticket_parse(FILE* fh)
 
 ticket_t ticket_from_wad(struct wad_data* wad)
 {
-  fseek(wad->fh, wad_get_section_offset(wad, WAD_SECTION_TICKET), SEEK_SET);
+  fseek(wad->fh, (long)wad_get_section_offset(wad, WAD_SECTION_TICKET),
+        SEEK_SET);
   return ticket_parse(wad->fh);
 }
 

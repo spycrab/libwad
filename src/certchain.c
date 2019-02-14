@@ -42,7 +42,7 @@ certchain_t certchain_parse(FILE* fh, size_t end)
     fread(&cert->signature_type, sizeof(cert->signature_type), 1, fh);
     be_int32(&cert->signature_type);
 
-    uint32_t signature_size =
+    size_t signature_size =
         certchain_get_signature_key_length(cert->signature_type);
 
     if (signature_size == 0) {
@@ -68,7 +68,7 @@ certchain_t certchain_parse(FILE* fh, size_t end)
     fread(&cert->key_type, sizeof(cert->key_type), 1, fh);
     be_int32(&cert->key_type);
 
-    uint32_t key_size = certchain_get_private_key_length(cert->key_type);
+    size_t key_size = certchain_get_private_key_length(cert->key_type);
 
     if (key_size == 0) {
       printf("Bad key type: %x\n", cert->key_type);
@@ -112,7 +112,8 @@ certchain_t certchain_from_wad(wad_t handle)
 {
   struct wad_data* wad = (struct wad_data*)handle;
 
-  fseek(wad->fh, wad_get_section_offset(wad, WAD_SECTION_CERTCHAIN), SEEK_SET);
+  fseek(wad->fh, (long)wad_get_section_offset(wad, WAD_SECTION_CERTCHAIN),
+        SEEK_SET);
 
   return certchain_parse(wad->fh, align32(0x20) + align32(wad->certchain_size));
 }

@@ -167,9 +167,6 @@ uint64_t wad_get_section_offset(wad_t handle, wad_section_t type)
 
 uint32_t wad_get_section_size(wad_t handle, wad_section_t type)
 {
-  if (type > WAD_SECTION_FOOTER)
-    return WAD_BAD_SECTION;
-
   struct wad_data* data = (struct wad_data*)handle;
 
   switch (type) {
@@ -185,6 +182,8 @@ uint32_t wad_get_section_size(wad_t handle, wad_section_t type)
     return data->data_size;
   case WAD_SECTION_FOOTER:
     return data->footer_size;
+  default:
+    return WAD_BAD_SECTION;
   }
 }
 

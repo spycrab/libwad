@@ -75,29 +75,29 @@ static tmd_t tmd_parse(FILE* fh)
     return NULL;
   }
 
-    for (uint32_t i = 0; i < data->content_count; i++) {
-      tmd_content_t* c = &(data->contents[i]);
-      fread(&c->id, sizeof(c->id), 1, fh);
-      be_int32(&c->id);
+  for (uint32_t i = 0; i < data->content_count; i++) {
+    tmd_content_t* c = &(data->contents[i]);
+    fread(&c->id, sizeof(c->id), 1, fh);
+    be_int32(&c->id);
 
-      fread(&c->index, sizeof(c->index), 1, fh);
-      be_int16(&c->index);
+    fread(&c->index, sizeof(c->index), 1, fh);
+    be_int16(&c->index);
 
-      fread(&c->type, sizeof(c->type), 1, fh);
-      be_int16(&c->type);
+    fread(&c->type, sizeof(c->type), 1, fh);
+    be_int16(&c->type);
 
-      fread(&c->size, sizeof(c->size), 1, fh);
-      be_int64(&c->size);
+    fread(&c->size, sizeof(c->size), 1, fh);
+    be_int64(&c->size);
 
-      fread(&c->hash, sizeof(c->hash), 1, fh);
-    }
+    fread(&c->hash, sizeof(c->hash), 1, fh);
+  }
 
   return data;
 }
 
 tmd_t tmd_from_wad(struct wad_data* wad)
 {
-  fseek(wad->fh, wad_get_section_offset(wad, WAD_SECTION_TMD), SEEK_SET);
+  fseek(wad->fh, (long)wad_get_section_offset(wad, WAD_SECTION_TMD), SEEK_SET);
 
   return tmd_parse(wad->fh);
 }

@@ -20,7 +20,7 @@ unsigned char* data_extract_from_wad(wad_t handle, uint16_t index,
   tmd_t tmd = wad_get_tmd(wad);
   tmd_t ticket = wad_get_ticket(wad);
 
-  fseek(wad->fh, wad_get_section_offset(wad, WAD_SECTION_DATA), SEEK_SET);
+  fseek(wad->fh, (long)wad_get_section_offset(wad, WAD_SECTION_DATA), SEEK_SET);
 
   return data_extract((data_t)wad->fh, tmd, ticket, index, verify);
 }
