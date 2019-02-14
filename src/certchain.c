@@ -11,7 +11,8 @@
 
 certchain_t certchain_parse(FILE* fh, size_t end)
 {
-  struct certchain_data* data = (struct certchain_data*)malloc(sizeof(struct certchain_data));
+  struct certchain_data* data =
+      (struct certchain_data*)malloc(sizeof(struct certchain_data));
 
   if (data == NULL) {
     g_error = LIBWAD_BAD_ALLOC;
@@ -22,7 +23,7 @@ certchain_t certchain_parse(FILE* fh, size_t end)
   data->cert_count = 0;
   data->chain = NULL;
 
-  if (ftell(fh) >= end)
+  if ((size_t)ftell(fh) >= end)
     return NULL;
 
   data->chain = (struct link*)malloc(sizeof(struct link));
@@ -33,7 +34,7 @@ certchain_t certchain_parse(FILE* fh, size_t end)
   }
 
   struct link* current = data->chain;
-  while (ftell(fh) < end) {
+  while ((size_t)ftell(fh) < end) {
     current->next = NULL;
     cert_t* cert = &current->data;
     cert->signature = NULL;
@@ -92,7 +93,7 @@ certchain_t certchain_parse(FILE* fh, size_t end)
 
     data->cert_count++;
 
-    if (ftell(fh) < end) {
+    if ((size_t)ftell(fh) < end) {
       current->next = (struct link*)malloc(sizeof(struct link));
 
       if (current->next == NULL) {

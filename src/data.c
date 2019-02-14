@@ -36,8 +36,9 @@ unsigned char* data_extract(data_t handle, wad_t tmd, tmd_t ticket,
   }
 
   unsigned char* enc_buffer =
-      (unsigned char*)malloc(align64(content->size, 16));
-  unsigned char* buffer = (unsigned char*)malloc(align64(content->size, 16));
+      (unsigned char*)malloc((size_t)align64(content->size, 16));
+  unsigned char* buffer =
+      (unsigned char*)malloc((size_t)align64(content->size, 16));
 
   if (enc_buffer == NULL || buffer == NULL) {
     g_error = LIBWAD_BAD_ALLOC;
@@ -78,7 +79,7 @@ unsigned char* data_extract(data_t handle, wad_t tmd, tmd_t ticket,
   memcpy(iv, &x, sizeof(x));
 
   int ret = mbedtls_aes_crypt_cbc(&ctx, MBEDTLS_AES_DECRYPT,
-                                  align64(content->size, 16), iv,
+                                  (size_t)align64(content->size, 16), iv,
                                   &enc_buffer[0], &buffer[0]);
 
   free(enc_buffer);
@@ -93,7 +94,7 @@ unsigned char* data_extract(data_t handle, wad_t tmd, tmd_t ticket,
     return buffer;
 
   unsigned char hash[20];
-  mbedtls_sha1_ret(buffer, content->size, hash);
+  mbedtls_sha1_ret(buffer, (size_t)content->size, hash);
 
   if (memcmp(hash, content->hash, 20) != 0) {
     g_error = LIBWAD_HASH_MISMATCH;

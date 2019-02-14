@@ -200,7 +200,7 @@ int main(int argc, char** argv)
 
     uint64_t size = tmd_get_content(tmd, i)->size;
 
-    if (fwrite(data, size, 1, fh) != 1) {
+    if (fwrite(data, (long)size, 1, fh) != 1) {
       if (keep_going) {
         printf("Error: Failed to write\n");
         free(data);
