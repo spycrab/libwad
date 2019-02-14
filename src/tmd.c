@@ -23,7 +23,7 @@ struct tmd_data {
 
 static tmd_t tmd_parse(FILE* fh)
 {
-  struct tmd_data* data = malloc(sizeof(struct tmd_data));
+  struct tmd_data* data = (struct tmd_data*)malloc(sizeof(struct tmd_data));
 
   if (data == NULL) {
     g_error = LIBWAD_BAD_ALLOC;

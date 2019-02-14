@@ -35,8 +35,9 @@ unsigned char* data_extract(data_t handle, wad_t tmd, tmd_t ticket,
     return NULL;
   }
 
-  unsigned char* enc_buffer = malloc(align64(content->size, 16));
-  unsigned char* buffer = malloc(align64(content->size, 16));
+  unsigned char* enc_buffer =
+      (unsigned char*)malloc(align64(content->size, 16));
+  unsigned char* buffer = (unsigned char*)malloc(align64(content->size, 16));
 
   if (enc_buffer == NULL || buffer == NULL) {
     g_error = LIBWAD_BAD_ALLOC;
