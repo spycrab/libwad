@@ -24,6 +24,12 @@ struct tmd_data {
 static tmd_t tmd_parse(FILE* fh)
 {
   struct tmd_data* data = malloc(sizeof(struct tmd_data));
+
+  if (data == NULL) {
+    g_error = LIBWAD_BAD_ALLOC;
+    return NULL;
+  }
+
   data->fh = NULL;
 
   fseek(fh, 0x184, SEEK_CUR);
@@ -63,22 +69,28 @@ static tmd_t tmd_parse(FILE* fh)
   data->contents =
       (tmd_content_t*)malloc(sizeof(tmd_content_t) * data->content_count);
 
-  for (uint32_t i = 0; i < data->content_count; i++) {
-    tmd_content_t* c = &(data->contents[i]);
-    fread(&c->id, sizeof(c->id), 1, fh);
-    be_int32(&c->id);
-
-    fread(&c->index, sizeof(c->index), 1, fh);
-    be_int16(&c->index);
-
-    fread(&c->type, sizeof(c->type), 1, fh);
-    be_int16(&c->type);
-
-    fread(&c->size, sizeof(c->size), 1, fh);
-    be_int64(&c->size);
-
-    fread(&c->hash, sizeof(c->hash), 1, fh);
+  if (data->contents == NULL) {
+    g_error = LIBWAD_BAD_ALLOC;
+    data_close(data);
+    return NULL;
   }
+
+    for (uint32_t i = 0; i < data->content_count; i++) {
+      tmd_content_t* c = &(data->contents[i]);
+      fread(&c->id, sizeof(c->id), 1, fh);
+      be_int32(&c->id);
+
+      fread(&c->index, sizeof(c->index), 1, fh);
+      be_int16(&c->index);
+
+      fread(&c->type, sizeof(c->type), 1, fh);
+      be_int16(&c->type);
+
+      fread(&c->size, sizeof(c->size), 1, fh);
+      be_int64(&c->size);
+
+      fread(&c->hash, sizeof(c->hash), 1, fh);
+    }
 
   return data;
 }

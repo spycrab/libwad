@@ -24,6 +24,12 @@ static struct ticket_data* ticket_parse(FILE* fh)
 {
   struct ticket_data* data =
       (struct ticket_data*)malloc(sizeof(struct ticket_data));
+
+  if (data == NULL) {
+    g_error = LIBWAD_BAD_ALLOC;
+    return NULL;
+  }
+
   data->fh = NULL;
 
   unsigned char enc_title_key[16];

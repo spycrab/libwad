@@ -27,6 +27,11 @@ wad_t wad_open(const char* filename)
 
   struct wad_data* wad = (struct wad_data*)malloc(sizeof(struct wad_data));
 
+  if (wad == NULL) {
+    g_error = LIBWAD_BAD_ALLOC;
+    return NULL;
+  }
+
   wad->certchain = NULL;
   wad->ticket = NULL;
   wad->tmd = NULL;

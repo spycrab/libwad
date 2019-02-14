@@ -12,6 +12,12 @@
 certchain_t certchain_parse(FILE* fh, size_t end)
 {
   struct certchain_data* data = malloc(sizeof(struct certchain_data));
+
+  if (data == NULL) {
+    g_error = LIBWAD_BAD_ALLOC;
+    return NULL;
+  }
+
   data->fh = NULL;
   data->cert_count = 0;
   data->chain = NULL;
@@ -20,6 +26,11 @@ certchain_t certchain_parse(FILE* fh, size_t end)
     return NULL;
 
   data->chain = malloc(sizeof(struct link));
+
+  if (data->chain == NULL) {
+    g_error = LIBWAD_BAD_ALLOC;
+    return NULL;
+  }
 
   struct link* current = data->chain;
   while (ftell(fh) < end) {
@@ -42,6 +53,12 @@ certchain_t certchain_parse(FILE* fh, size_t end)
 
     cert->signature = malloc(signature_size);
 
+    if (cert->signature == NULL) {
+      g_error = LIBWAD_BAD_ALLOC;
+      certchain_close(data);
+      return NULL;
+    }
+
     fread(cert->signature, signature_size, 1, fh);
 
     fseek(fh, 0x3c, SEEK_CUR);
@@ -63,6 +80,12 @@ certchain_t certchain_parse(FILE* fh, size_t end)
 
     cert->public_key = malloc(key_size);
 
+    if (cert->public_key == NULL) {
+      g_error = LIBWAD_BAD_ALLOC;
+      certchain_close(cert->public_key);
+      return NULL;
+    }
+
     fread(cert->public_key, key_size, 1, fh);
 
     fseek(fh, align32(ftell(fh)), SEEK_SET);
@@ -71,6 +94,13 @@ certchain_t certchain_parse(FILE* fh, size_t end)
 
     if (ftell(fh) < end) {
       current->next = malloc(sizeof(struct link));
+
+      if (current->next == NULL) {
+        g_error = LIBWAD_BAD_ALLOC;
+        data_close(current->next);
+        return NULL;
+      }
+
       current = current->next;
     }
   }
@@ -83,7 +113,7 @@ certchain_t certchain_from_wad(wad_t handle)
   struct wad_data* wad = (struct wad_data*)handle;
 
   fseek(wad->fh, wad_get_section_offset(wad, WAD_SECTION_CERTCHAIN), SEEK_SET);
-  
+
   return certchain_parse(wad->fh, align32(0x20) + align32(wad->certchain_size));
 }
 
