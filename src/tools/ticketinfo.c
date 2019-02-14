@@ -16,18 +16,20 @@ int main(int argc, char** argv)
   struct optparse options;
   optparse_init(&options, argv);
 
-  const char* flags = "hv";
+  struct optparse_long flags[] = {
+      {"help", 'h', OPTPARSE_NONE}, {"version", 'v', OPTPARSE_NONE}, {0}};
 
-  for (char c = optparse(&options, flags); c != -1;
-       c = optparse(&options, flags)) {
+  for (char c = optparse_long(&options, flags, NULL); c != -1;
+       c = optparse_long(&options, flags, NULL)) {
     switch (c) {
     case 'h':
       printf("Options:\n\n"
-             "-h:\tDisplay this list\n"
-             "-v:\tDisplay version\n");
+             "--help, -h:\tDisplay this list\n"
+             "--version, -v:\tDisplay version\n");
       return 0;
     case 'v':
-      printf("ticketinfo from libwad version %s\n", libwad_get_version_string());
+      printf("ticketinfo from libwad version %s\n",
+             libwad_get_version_string());
       return 0;
     case '?':
       printf(

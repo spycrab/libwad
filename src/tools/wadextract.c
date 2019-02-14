@@ -21,23 +21,33 @@ int main(int argc, char** argv)
   int quiet = 0, keep_going = 0, verify_hash = 0, sections = 0;
   const char* out_path = NULL;
 
-  const char* flags = "skvichn:f:t:o:";
+  struct optparse_long flags[] = {{"from", 'f', OPTPARSE_OPTIONAL},
+                                  {"help", 'h', OPTPARSE_NONE},
+                                  {"ignore-hashes", 'i', OPTPARSE_NONE},
+                                  {"keep-going", 'k', OPTPARSE_NONE},
+                                  {"entry", 'n', OPTPARSE_OPTIONAL},
+                                  {"output", 'o', OPTPARSE_REQUIRED},
+                                  {"quiet", 'q', OPTPARSE_NONE},
+                                  {"sections", 's', OPTPARSE_NONE},
+                                  {"to", 't', OPTPARSE_OPTIONAL},
+                                  {"version", 'v', OPTPARSE_NONE},
+                                  {0}};
 
-  for (int c = optparse(&options, flags); c != -1;
-       c = optparse(&options, flags)) {
+  for (int c = optparse_long(&options, flags, NULL); c != -1;
+       c = optparse_long(&options, flags, NULL)) {
     switch (c) {
     case 'h':
       printf("Help:\n\n"
-             "-v\tDisplay version\n"
-             "-h\tDisplay this list\n"
-             "-s\tExtract sections instead of contents\n"
-             "-k\tKeep going despite errors\n"
-             "-i\tIgnore content hashes\n"
-             "-n (e)\tExtract given entry only\n"
-             "-f (e)\tStart extracting at entry\n"
-             "-t (e)\tStop extracting at entry\n"
-             "-o (o)\tOutput path\n"
-             "-q\tQuiet");
+             "--help, -h\tDisplay this list\n"
+             "--from, -f (e)\tStart extracting at entry\n"
+             "--ignore-hashes, -i\tIgnore content hashes\n"
+             "--keep-going, -k\tKeep going despite errors\n"
+             "--entry, -n (e)\tExtract given entry only\n"
+             "--output, -o (o)\tOutput path\n"
+             "--sections, -s\tExtract sections instead of contents\n"
+             "--to, -t (e)\tStop extracting at entry\n"
+             "--quiet, -q\tQuiet\n"
+             "--version, -v\tDisplay version\n");
       return 0;
     case 's':
       sections = 1;

@@ -17,14 +17,16 @@ int main(int argc, char** argv)
 
   optparse_init(&options, argv);
 
-  const char* flags = "hv";
+  struct optparse_long flags[] = {
+      {"help", 'h', OPTPARSE_NONE}, {"version", 'v', OPTPARSE_NONE}, {0}};
 
-  for (int c = optparse(&options, flags); c != -1;
-       c = optparse(&options, flags)) {
+  for (int c = optparse_long(&options, flags, NULL); c != -1;
+       c = optparse_long(&options, flags, NULL)) {
     switch (c) {
     case 'h':
       printf("Options:\n\n"
-             "-h:\t Display this list\n");
+             "--help, -h:\t Display this list\n"
+             "--version, -v:\t Display version\n");
       return 0;
     case 'v':
       printf("wadverify from libwad version %s\n", libwad_get_version_string());

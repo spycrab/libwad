@@ -18,21 +18,27 @@ int main(int argc, char** argv)
 
   optparse_init(&options, argv);
 
-  const char* flags = "hvtmcap:";
+  struct optparse_long flags[] = {{"all", 'a', OPTPARSE_NONE},
+                                  {"certchain", 'c', OPTPARSE_NONE},
+                                  {"help", 'h', OPTPARSE_NONE},
+                                  {"tmd", 'm', OPTPARSE_NONE},
+                                  {"ticket", 't', OPTPARSE_NONE},
+                                  {"version", 'v', OPTPARSE_NONE},
+                                  {0}};
 
   int display_ticket = 0, display_tmd = 0, display_certchain = 0;
 
-  for (int i = optparse(&options, flags); i != -1;
-       i = optparse(&options, flags)) {
+  for (int i = optparse_long(&options, flags, NULL); i != -1;
+       i = optparse_long(&options, flags, NULL)) {
     switch (i) {
     case 'h':
       printf("Options:\n\n"
-             "-a (default):\tDisplay all information\n"
-             "-c:\tDisplay certificate chain information\n"
-             "-h:\tDisplay this list\n"
-             "-m:\tDisplay TMD information\n"
-             "-t:\tDisplay ticket information\n"
-             "-v:\tDisplay version\n");
+             "--all, -a (default):\tDisplay all information\n"
+             "--certchain, -c:\tDisplay certificate chain information\n"
+             "--help, -h:\tDisplay this list\n"
+             "--tmd, -m:\tDisplay TMD information\n"
+             "--ticket, -t:\tDisplay ticket information\n"
+             "--version, -v:\tDisplay version\n");
       return 0;
     case 't':
       display_ticket = 1;

@@ -78,22 +78,27 @@ int main(int argc, char** argv)
   const char* data_path = NULL;
   const char* footer_path = NULL;
 
-  const char* flags = "qhvc:t:m:d:f:o:";
+  struct optparse_long flags[] = {
+      {"footer", 'f', OPTPARSE_OPTIONAL}, {"certchain", 'c', OPTPARSE_REQUIRED},
+      {"data", 'd', OPTPARSE_REQUIRED},   {"help", 'h', OPTPARSE_NONE},
+      {"tmd", 'm', OPTPARSE_REQUIRED},    {"output", 'o', OPTPARSE_REQUIRED},
+      {"quiet", 'q', OPTPARSE_NONE},      {"ticket", 't', OPTPARSE_REQUIRED},
+      {"version", 'v', OPTPARSE_NONE},    {0}};
 
-  for (int c = optparse(&options, flags); c != -1;
-       c = optparse(&options, flags)) {
+  for (int c = optparse_long(&options, flags, NULL); c != -1;
+       c = optparse_long(&options, flags, NULL)) {
     switch (c) {
     case 'h':
       printf("Help:\n\n"
-             "-c (c)\tCertchain path\n"
-             "-d (d)\tData path"
-             "-f (f)\tFooter path\n"
-             "-h\tDisplay this list\n"
-             "-m (m)\tTitle metadata path\n"
-             "-o (o)\tOutput path\n"
-             "-t (t)\tTicket path\n"
-             "-v\tDisplay version\n"
-             "-q\tQuiet\n");
+             "--certchain, -c (c)\tCertchain path\n"
+             "--data, -d (d)\tData path\n"
+             "--footer, -f (f)\tFooter path\n"
+             "--help, -h\tDisplay this list\n"
+             "--tmd, -m (m)\tTitle metadata path\n"
+             "--output, -o (o)\tOutput path\n"
+             "--quiet, -q\tQuiet\n"
+             "--ticket, -t (t)\tTicket path\n"
+             "--version, -v\tDisplay version\n");
       return 0;
     case 'c':
       certchain_path = options.optarg;
