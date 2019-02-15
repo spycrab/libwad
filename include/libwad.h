@@ -117,14 +117,14 @@ typedef enum {
   CERT_SIGNATURE_TYPE_RSA_4096 = 0x10000,
   CERT_SIGNATURE_TYPE_RSA_2048 = 0x10001,
   CERT_SIGNATURE_TYPE_ECC = 0x10002
-} cert_key_type_t;
+} cert_signature_type_t;
 
 //! Types of keys used by cert_t
 typedef enum {
   CERT_KEY_TYPE_RSA_4096 = 0,
   CERT_KEY_TYPE_RSA_2048 = 1,
   CERT_KEY_TYPE_ECC_B233 = 2
-} cert_signature_type_t;
+} cert_key_type_t;
 
 //! Opens a certificate chain file for reading
 /// @param filename path to the file to be opened
