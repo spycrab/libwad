@@ -140,7 +140,7 @@ W_EXPORT certchain_t certchain_open(const char* filename);
 
 //! Closes a certchain handle and frees its resources
 /// @param handle The handle to be closed
-void certchain_close(certchain_t certchain);
+W_EXPORT void certchain_close(certchain_t certchain);
 
 //! Get certchain section of a wad file
 W_EXPORT certchain_t wad_get_certchain(wad_t handle);
