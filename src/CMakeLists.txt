@@ -15,10 +15,11 @@ set(SOURCES
     wad.c
 )
 
-add_library(libwad ${SOURCES})
+add_library(libwad SHARED ${SOURCES})
 
 set_target_properties(libwad PROPERTIES PREFIX "")
 set_target_properties(libwad PROPERTIES PUBLIC_HEADER "${CMAKE_SOURCE_DIR}/include/libwad.h")
+set_target_properties(libwad PROPERTIES C_VISIBILITY_PRESET hidden) 
 
 # Version info
 configure_file(version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h)
@@ -29,8 +30,8 @@ target_link_libraries(libwad mbedtls)
 target_include_directories(libwad PRIVATE ${CMAKE_SOURCE_DIR}/externals/mbedtls/include)
 
 install(TARGETS libwad 
-        LIBRARY DESTINATION "lib"
-        ARCHIVE DESTINATION "lib"
+        LIBRARY DESTINATION "bin"
+        ARCHIVE DESTINATION "bin"
         PUBLIC_HEADER DESTINATION "include")
 		
 if (ENABLE_TOOLS)

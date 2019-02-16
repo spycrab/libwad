@@ -8,6 +8,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#ifdef _WIN32
+#define W_EXPORT __declspec(dllexport) extern
+#else
+#define W_EXPORT __attribute__((visibility("default")))
+#endif
+
 //! \file
 
 //! Error codes used by the library
@@ -59,34 +65,34 @@ typedef enum {
 /// @param path the path to the file to be opened
 /// @returns A wad_t handle on success or NULL on error (See
 /// libwad_get_error() for more details)
-wad_t wad_open(const char* path);
+W_EXPORT wad_t wad_open(const char* path);
 
 //! Closes a wad handle and frees its resources
 /// @param handle the handle to be free'd
-void wad_close(wad_t handle);
+W_EXPORT void wad_close(wad_t handle);
 
 //! Gets the offset of a given wad section
 /// @returns offset of the section in bytes or WAD_BAD_SECTION on error
-uint64_t wad_get_section_offset(wad_t handle, wad_section_t type);
+W_EXPORT uint64_t wad_get_section_offset(wad_t handle, wad_section_t type);
 
 //! Gets the size of a given wad section
 /// @returns size of the section in bytes or WAD_BAD_SECTION on error
-uint32_t wad_get_section_size(wad_t handle, wad_section_t type);
+W_EXPORT uint32_t wad_get_section_size(wad_t handle, wad_section_t type);
 
 // @}
 
 //! Get the last error
 /// @returns An error code describing what went wrong
 /// \remark Use libwad_get_error_msg() for a human readable version
-libwad_error_t libwad_get_error();
+W_EXPORT libwad_error_t libwad_get_error();
 
 //! Get the last error as a string
 /// @returns A human readable string describing the last error that occured
-const char* libwad_get_error_msg();
+W_EXPORT const char* libwad_get_error_msg();
 
 //! Get the library version
 /// @returns A string describing the current release, build and branch
-const char* libwad_get_version_string();
+W_EXPORT const char* libwad_get_version_string();
 
 //@{
 //! @name Certificate chain
@@ -130,26 +136,26 @@ typedef enum {
 /// @param filename path to the file to be opened
 /// @returns A certchain_t handle on success or NULL on error (See
 /// libwad_get_error() for more details)
-certchain_t certchain_open(const char* filename);
+W_EXPORT certchain_t certchain_open(const char* filename);
 
 //! Closes a certchain handle and frees its resources
 /// @param handle The handle to be closed
 void certchain_close(certchain_t certchain);
 
 //! Get certchain section of a wad file
-certchain_t wad_get_certchain(wad_t handle);
+W_EXPORT certchain_t wad_get_certchain(wad_t handle);
 
 //! Get the amount of certificates stored in this certificate chain
-size_t certchain_get_cert_count(certchain_t handle);
+W_EXPORT size_t certchain_get_cert_count(certchain_t handle);
 
 //! Get single certificate out of the certchain
-cert_t* certchain_get_cert(certchain_t handle, size_t index);
+W_EXPORT cert_t* certchain_get_cert(certchain_t handle, size_t index);
 
 //! Get length for a key of a given type
-size_t certchain_get_private_key_length(cert_key_type_t type);
+W_EXPORT size_t certchain_get_private_key_length(cert_key_type_t type);
 
 //! Get length for a signature of a given type
-size_t certchain_get_signature_key_length(cert_signature_type_t type);
+W_EXPORT size_t certchain_get_signature_key_length(cert_signature_type_t type);
 
 //@}
 
@@ -207,50 +213,50 @@ typedef struct {
 /// @param filename path to the file to be opened
 /// @returns A tmd_t handle on success or NULL on error (See
 /// libwad_get_error() for more details)
-tmd_t tmd_open(const char* filename);
+W_EXPORT tmd_t tmd_open(const char* filename);
 
 //! Closes a tmd handle and frees its resources
 /// @param handle The handle to be closed
-void tmd_close(tmd_t handle);
+W_EXPORT void tmd_close(tmd_t handle);
 
 //! Gets the title metadata section of a given wad file
 /// @param handle The handle of the wad file
-tmd_t wad_get_tmd(wad_t handle);
+W_EXPORT tmd_t wad_get_tmd(wad_t handle);
 
 //! Get the title id from a tmd_t
 /// \remark Use util_title_id_to_string() to get a human readable version of
 /// this id
-uint64_t tmd_get_title_id(tmd_t handle);
+W_EXPORT uint64_t tmd_get_title_id(tmd_t handle);
 
 //! Get the amount of contents the title has
-uint16_t tmd_get_content_count(tmd_t handle);
+W_EXPORT uint16_t tmd_get_content_count(tmd_t handle);
 
 //! Returns the minimum IOS version required
-uint64_t tmd_get_ios_version(tmd_t handle);
+W_EXPORT uint64_t tmd_get_ios_version(tmd_t handle);
 
 //! Returns the version of the title
-uint32_t tmd_get_title_version(tmd_t handle);
+W_EXPORT uint32_t tmd_get_title_version(tmd_t handle);
 
 //! Gets the id representing the region of the title
 /// @returns An id representing the region
 /// \remark Use tmd_get_title_region_string(tmd_t) to get a human readable
 /// string
-tmd_region_t tmd_get_title_region(tmd_t handle);
+W_EXPORT tmd_region_t tmd_get_title_region(tmd_t handle);
 
 //! Get a human readable string representing the title region
-const char* tmd_get_title_region_string(tmd_t handle);
+W_EXPORT const char* tmd_get_title_region_string(tmd_t handle);
 
 //! Get the type of the title
 /// @returns An id describing the title type
 /// \remark Use tmd_get_title_type_string(tmd_t) to get a human readable string
-tmd_type_t tmd_get_title_type(tmd_t handle);
+W_EXPORT tmd_type_t tmd_get_title_type(tmd_t handle);
 
 //! Get a human readable string representing the title type
-const char* tmd_get_title_type_string(tmd_t handle);
+W_EXPORT const char* tmd_get_title_type_string(tmd_t handle);
 
 //! Get the metadata of content
 /// @param index index of content to get
-tmd_content_t* tmd_get_content(tmd_t handle, uint16_t index);
+W_EXPORT tmd_content_t* tmd_get_content(tmd_t handle, uint16_t index);
 
 //@}
 
@@ -264,28 +270,28 @@ typedef void* ticket_t;
 /// @param path Path to the file to be opened
 /// @returns A ticket_t handle on success or NULL on error (See
 /// libwad_get_error() for more details)
-ticket_t ticket_open(const char* path);
+W_EXPORT ticket_t ticket_open(const char* path);
 
 //! Closes a ticket handle and frees its resources
 // @param handle the handle to be free'd
-void ticket_close(ticket_t data);
+W_EXPORT void ticket_close(ticket_t data);
 
 //! Gets the ticket section of a given wad file
 // @param handle the handle of the wad file
-ticket_t wad_get_ticket(wad_t handle);
+W_EXPORT ticket_t wad_get_ticket(wad_t handle);
 
 //! Get the ticket issuer
 /// @returns the key used to encrypt the contents
-const char* ticket_get_issuer(ticket_t handle);
+W_EXPORT const char* ticket_get_issuer(ticket_t handle);
 
 //! Get the title id from a ticket_t
 /// \remark You can use util_title_id_to_string(uint64_t) to get a human
 /// readable version of this id
-uint64_t ticket_get_title_id(ticket_t handle);
+W_EXPORT uint64_t ticket_get_title_id(ticket_t handle);
 
 //! Get the title key
 // @returns the key used to encrypt the contents (always 16 bytes in length)
-unsigned const char* ticket_get_title_key(ticket_t handle);
+W_EXPORT unsigned const char* ticket_get_title_key(ticket_t handle);
 /// @}
 
 //@{
@@ -306,21 +312,21 @@ typedef enum {
 /// @param path path to the file to be opened
 /// @returns a data_t handle on success or NULL on error (See
 /// libwad_get_error() for more details)
-data_t data_open(const char* path);
+W_EXPORT data_t data_open(const char* path);
 
 //! Closes a data handle and frees its resources
 // @param handle the handle to be free'd
-void data_close(data_t handle);
+W_EXPORT void data_close(data_t handle);
 
 //! Extracts given content from a wad
 /// \warning You have to take care of freeing the returned buffer yourself
-unsigned char* data_extract_from_wad(wad_t handle, uint16_t index,
-                                     data_verify_t verify);
+W_EXPORT unsigned char* data_extract_from_wad(wad_t handle, uint16_t index,
+                                              data_verify_t verify);
 
 //! Extracts given content from a file
 /// \warning You have to take care of freeing the returned buffer yourself
-unsigned char* data_extract(data_t handle, wad_t tmd, tmd_t ticket,
-                            uint16_t index, data_verify_t verify);
+W_EXPORT unsigned char* data_extract(data_t handle, wad_t tmd, tmd_t ticket,
+                                     uint16_t index, data_verify_t verify);
 
 //@}
 
@@ -328,7 +334,9 @@ unsigned char* data_extract(data_t handle, wad_t tmd, tmd_t ticket,
 //! @name Utilities
 
 //! Get a human readable version of a title id
-const char* util_title_id_to_string(uint64_t title_id);
+W_EXPORT const char* util_title_id_to_string(uint64_t title_id);
 // @}
+
+#undef W_EXPORT
 
 #endif

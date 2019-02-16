@@ -3,6 +3,7 @@
 // Refer to the LICENSE file included.
 
 #include "util.h"
+#include "libwad.h"
 
 #include <ctype.h>
 
