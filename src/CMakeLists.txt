@@ -30,7 +30,7 @@ target_link_libraries(libwad mbedtls)
 target_include_directories(libwad PRIVATE ${CMAKE_SOURCE_DIR}/externals/mbedtls/include)
 
 install(TARGETS libwad 
-        LIBRARY DESTINATION "bin"
+        LIBRARY DESTINATION "lib"
         ARCHIVE DESTINATION "bin"
         PUBLIC_HEADER DESTINATION "include")
 		
