@@ -8,10 +8,14 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#ifndef DOCS_SKIP
+
 #ifdef _WIN32
 #define W_EXPORT __declspec(dllexport) extern
 #else
 #define W_EXPORT __attribute__((visibility("default")))
+#endif
+
 #endif
 
 //! \file
