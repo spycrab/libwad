@@ -116,7 +116,7 @@ if(GIT_FOUND)
 
 else()
    # Fallback if git is unavailable
-   set(LIBWAD_VERSION "0.1")
+   set(LIBWAD_VERSION "0.1.5")
 endif()
 
 add_subdirectory(src)

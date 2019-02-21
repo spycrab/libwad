@@ -31,10 +31,15 @@ if (BUILD_SHARED)
   target_include_directories(libwad PRIVATE ${CMAKE_SOURCE_DIR}/externals/mbedtls/include)
 
   if (ENABLE_INSTALL)
-    install(TARGETS libwad 
+    install(TARGETS libwad
             LIBRARY DESTINATION "lib"
+            RUNTIME DESTINATION "lib"
             ARCHIVE DESTINATION "bin"
             PUBLIC_HEADER DESTINATION "include")
+    if (MSVC)
+      install(TARGETS libwad
+              RUNTIME DESTINATION "bin")
+    endif()
   endif()
 endif()
 

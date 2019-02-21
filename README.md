@@ -12,6 +12,9 @@ libwad also provides a suite of tools for performing various tasks surronding th
 - [Doxygen](http://www.doxygen.nl) (*optional; Needed for documentation only*)
 - A C Compiler with C99 support
 
+## Installation
+
+If you don't want CMake to create the library or tools install target. Set ``ENABLE_INSTALL`` to ``OFF``.
 ## Documentation
 
 Documentation can be built via the target ``docs`` if CMake detects a Doxygen install.  
