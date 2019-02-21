@@ -3,6 +3,13 @@ project(libwad C)
 
 option(ENABLE_TOOLS "Build tools" ON)
 option(ENABLE_DOCS "Build docs" ON)
+option(ENABLE_INSTALL "Install library and tools" ON)
+option(BUILD_SHARED "Build shared library" ON)
+option(BUILD_STATIC "Build static library" OFF)
+
+if (NOT (BUILD_SHARED OR BUILD_STATIC))
+  message(FATAL_ERROR "BUILD_SHARED (and) or BUILD_STATIC need to be enabled!")
+endif()
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
