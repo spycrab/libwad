@@ -12,6 +12,19 @@
 
 #include "info.h"
 
+void show_help(const char* program)
+{
+  printf("%s [options] (wadfile)\n\n"
+         "Options:\n\n"
+         "-a, --all\t\tDisplay all information (default)\n"
+         "-c, --certchain\t\tDisplay certificate chain information\n"
+         "-h, --help\t\tShow this message\n"
+         "-t, --ticket\t\tDisplay ticket information\n"
+         "-m, --tmd\t\tDisplay TMD information\n"
+         "-v, --version\t\tDisplay version\n\n",
+         program);
+}
+
 int main(int argc, char** argv)
 {
   struct optparse options;
@@ -32,13 +45,7 @@ int main(int argc, char** argv)
        i = optparse_long(&options, flags, NULL)) {
     switch (i) {
     case 'h':
-      printf("Options:\n\n"
-             "--all, -a (default):\tDisplay all information\n"
-             "--certchain, -c:\tDisplay certificate chain information\n"
-             "--help, -h:\tDisplay this list\n"
-             "--tmd, -m:\tDisplay TMD information\n"
-             "--ticket, -t:\tDisplay ticket information\n"
-             "--version, -v:\tDisplay version\n");
+      show_help(argv[0]);
       return 0;
     case 't':
       display_ticket = 1;
@@ -66,7 +73,7 @@ int main(int argc, char** argv)
   const char* wad_path = optparse_arg(&options);
 
   if (wad_path == NULL) {
-    fprintf(stderr, "%s [options] (wadfile)\n", argv[0]);
+    show_help(argv[0]);
     return 1;
   }
 

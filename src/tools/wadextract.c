@@ -11,6 +11,23 @@
 #define OPTPARSE_IMPLEMENTATION
 #include <optparse.h>
 
+void show_help(const char* program)
+{
+  printf("%s [options] (wadfile)\n\n"
+         "Options:\n\n"
+         "-f, --from INDEX\tStart extracting at entry\n"
+         "-h, --help\t\tShow this message\n"
+         "-i, --ignore-hashes\tIgnore content hashes\n"
+         "-k, --keep-going\tKeep going despite errors\n"
+         "-n, --entry INDEX\tExtract given entry only\n"
+         "-o, --output NAME\tOutput path\n"
+         "-q, --quiet\t\tQuiet\n"
+         "-s, --sections\t\tExtract sections instead of contents\n"
+         "-t, --to INDEX\t\tStop extracting at entry\n"
+         "-v, --version\t\tDisplay version\n\n",
+         program);
+}
+
 int main(int argc, char** argv)
 {
   struct optparse options;
@@ -37,17 +54,7 @@ int main(int argc, char** argv)
        c = optparse_long(&options, flags, NULL)) {
     switch (c) {
     case 'h':
-      printf("Help:\n\n"
-             "--help, -h\tDisplay this list\n"
-             "--from, -f (e)\tStart extracting at entry\n"
-             "--ignore-hashes, -i\tIgnore content hashes\n"
-             "--keep-going, -k\tKeep going despite errors\n"
-             "--entry, -n (e)\tExtract given entry only\n"
-             "--output, -o (o)\tOutput path\n"
-             "--sections, -s\tExtract sections instead of contents\n"
-             "--to, -t (e)\tStop extracting at entry\n"
-             "--quiet, -q\tQuiet\n"
-             "--version, -v\tDisplay version\n");
+      show_help(argv[0]);
       return 0;
     case 's':
       sections = 1;
@@ -89,7 +96,7 @@ int main(int argc, char** argv)
   const char* wad_path = optparse_arg(&options);
 
   if (wad_path == NULL) {
-    fprintf(stderr, "%s [options] (wadfile)\n", argv[0]);
+    show_help(argv[0]);
     return 1;
   }
 

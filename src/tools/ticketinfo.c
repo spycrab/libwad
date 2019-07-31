@@ -11,6 +11,15 @@
 #define OPTPARSE_IMPLEMENTATION
 #include <optparse.h>
 
+void show_help(const char* program)
+{
+  printf("%s [options] (ticketfile)\n\n"
+         "Options:\n\n"
+         "-h, --help\t\tShow this message\n"
+         "-v, --version\t\tDisplay version\n\n",
+         program);
+}
+
 int main(int argc, char** argv)
 {
   struct optparse options;
@@ -23,9 +32,7 @@ int main(int argc, char** argv)
        c = optparse_long(&options, flags, NULL)) {
     switch (c) {
     case 'h':
-      printf("Options:\n\n"
-             "--help, -h:\tDisplay this list\n"
-             "--version, -v:\tDisplay version\n");
+      show_help(argv[0]);
       return 0;
     case 'v':
       printf("ticketinfo from libwad version %s\n",
@@ -41,7 +48,7 @@ int main(int argc, char** argv)
   const char* ticket_path = optparse_arg(&options);
 
   if (ticket_path == NULL) {
-    fprintf(stderr, "%s [options] (ticketfile)\n", argv[0]);
+    show_help(argv[0]);
     return 1;
   }
 

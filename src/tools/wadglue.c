@@ -63,6 +63,21 @@ void append_file(FILE* dst, const char* path)
     fputc(i, dst);
 }
 
+void show_help(const char* program)
+{
+  printf("%s [options]\n\nOptions:\n\n"
+         "-c, --certchain CERT\tCertchain path (required)\n"
+         "-d, --data DATA\t\tData path (required)\n"
+         "-f, --footer FOOTER\tFooter path (required)\n"
+         "-h, --help\t\tDisplay this list\n"
+         "-o, --output OUTPUT\tOutput path (required)\n"
+         "-q, --quiet\t\tQuiet\n"
+         "-t, --ticket TICKET\tTicket path (required)\n"
+         "-m, --tmd TMD\t\tTitle metadata path (required)\n"
+         "-v, --version\t\tDisplay version\n\n",
+         program);
+}
+
 int main(int argc, char** argv)
 {
   struct optparse options;
@@ -89,16 +104,7 @@ int main(int argc, char** argv)
        c = optparse_long(&options, flags, NULL)) {
     switch (c) {
     case 'h':
-      printf("Help:\n\n"
-             "--certchain, -c (c)\tCertchain path\n"
-             "--data, -d (d)\tData path\n"
-             "--footer, -f (f)\tFooter path\n"
-             "--help, -h\tDisplay this list\n"
-             "--tmd, -m (m)\tTitle metadata path\n"
-             "--output, -o (o)\tOutput path\n"
-             "--quiet, -q\tQuiet\n"
-             "--ticket, -t (t)\tTicket path\n"
-             "--version, -v\tDisplay version\n");
+      show_help(argv[0]);
       return 0;
     case 'c':
       certchain_path = options.optarg;
@@ -134,7 +140,7 @@ int main(int argc, char** argv)
   }
 
   if (out_path == NULL) {
-    fprintf(stderr, "Error: Missing output path\n");
+    show_help(argv[0]);
     return 1;
   }
 
