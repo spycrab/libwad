@@ -123,6 +123,11 @@ certchain_t certchain_open(const char* filename)
 {
   FILE* fh = fopen(filename, "rb");
 
+  if (!fh) {
+    g_error = LIBWAD_OPEN_FAILED;
+    return NULL;
+  }
+
   fseek(fh, 0, SEEK_END);
   size_t end = ftell(fh);
 

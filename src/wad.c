@@ -126,7 +126,7 @@ const char* libwad_get_error_msg()
   case LIBWAD_NO_ERROR:
     return "No error";
   case LIBWAD_OPEN_FAILED:
-    return "Failed to open wad";
+    return "Failed to open file";
   case LIBWAD_BAD_MAGIC:
     return "Bad magic - file might not be in wad format";
   case LIBWAD_BAD_TICKET:

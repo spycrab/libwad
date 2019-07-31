@@ -108,6 +108,12 @@ ticket_t ticket_from_wad(struct wad_data* wad)
 ticket_t ticket_open(const char* filename)
 {
   FILE* fh = fopen(filename, "rb");
+
+  if (!fh) {
+    g_error = LIBWAD_OPEN_FAILED;
+    return NULL;
+  }
+
   struct ticket_data* data = ticket_parse(fh);
 
   data->fh = fh;

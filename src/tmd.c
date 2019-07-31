@@ -105,6 +105,12 @@ tmd_t tmd_from_wad(struct wad_data* wad)
 ticket_t tmd_open(const char* filename)
 {
   FILE* fh = fopen(filename, "rb");
+
+  if (!fh) {
+    g_error = LIBWAD_OPEN_FAILED;
+    return NULL;
+  }
+
   struct tmd_data* data = tmd_parse(fh);
 
   data->fh = fh;
