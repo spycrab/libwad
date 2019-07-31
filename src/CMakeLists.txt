@@ -28,7 +28,7 @@ function(set_libwad_properties target)
   target_include_directories(${target} PRIVATE ${CMAKE_SOURCE_DIR}/externals/mbedtls/include)
 
   if (MSVC)
-    target_add_definitions(${target} -D_CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(${target} PRIVATE -D_CRT_SECURE_NO_WARNINGS)
   endif()
 
   set_target_properties(${target} PROPERTIES
