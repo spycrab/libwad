@@ -15,6 +15,11 @@ function(set_util_properties target)
     target_compile_definitions(${target} PRIVATE -D_CRT_SECURE_NO_WARNINGS)
   endif()
 
+  set_target_properties(${target} PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+  
   target_include_directories(${target} PRIVATE ${CMAKE_SOURCE_DIR}/externals/optparse)
 endfunction(set_util_properties)
 
